@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LATTE FRESCO - Farm Fresh Milk & Products</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+    }
+    body {
+      background: url('dairy-bg.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #333;
+      padding-top: 140px;
+    }
+    header {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #ddd;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      transition: all 0.3s ease;
+    }
+    header.shrink {
+      padding: 10px 30px;
+    }
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .logo-container img {
+      height: 120px;
+      transition: height 0.3s ease;
+    }
+    header.shrink .logo-container img {
+      height: 60px;
+    }
+    .logo-text {
+      font-weight: 700;
+      font-size: 60px;
+      color: #2e8b57;
+      user-select: none;
+      transition: font-size 0.3s ease;
+    }
+    header.shrink .logo-text {
+      font-size: 30px;
+    }
+    nav a {
+      margin: 0 12px;
+      text-decoration: none;
+      color: #333;
+      font-weight: 600;
+    }
+    .hero {
+      text-align: center;
+      padding: 60px 20px 60px;
+      background: rgba(255, 255, 255, 0.85);
+    }
+    .hero h1 {
+      font-size: 2.5em;
+      color: #2e8b57;
+      margin-bottom: 10px;
+    }
+    .hero p {
+      font-size: 1.2em;
+      margin-bottom: 20px;
+    }
+    .btn {
+      padding: 10px 20px;
+      background: #2e8b57;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 8px;
+      margin: 5px;
+      display: inline-block;
+    }
+    section {
+      background: #fff;
+      padding: 40px 20px;
+      max-width: 1100px;
+      margin: auto;
+      margin-top: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    }
+    h2 {
+      font-size: 2em;
+      color: #333;
+      margin-bottom: 20px;
+    }
+    .product-list-wrapper {
+      position: relative;
+    }
+    .product-list {
+      display: flex;
+      overflow: hidden;
+      scroll-behavior: smooth;
+      gap: 20px;
+    }
+    .product-card {
+      width: 260px;
+      background: #ffffff;
+      padding: 20px;
+      border-radius: 24px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      flex-shrink: 0;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .product-card:hover {
+      transform: scale(1.03);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.1);
+      z-index: 10;
+    }
+    .product-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 16px;
+      margin-bottom: 15px;
+    }
+    .nav-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.9);
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      padding: 10px 15px;
+      z-index: 10;
+    }
+    .nav-arrow.left {
+      left: -10px;
+    }
+    .nav-arrow.right {
+      right: -10px;
+    }
+    .footer {
+      text-align: center;
+      padding: 20px;
+      background: rgba(255,255,255,0.9);
+      font-size: 0.9em;
+    }
+    a:focus, .btn:focus {
+      outline: 3px solid #2e8b57;
+      outline-offset: 2px;
+    }
+  </style>
+  <script>
+    window.addEventListener('scroll', function() {
+      const header = document.querySelector('header');
+      header.classList.toggle('shrink', window.scrollY > 50);
+    });
+    function scrollProducts(direction) {
+      const container = document.querySelector('.product-list');
+      container.scrollBy({ left: direction * 280, behavior: 'smooth' });
+    }
+  </script>
+</head>
+<body>
+  <header>
+    <div class="logo-container">
+      <img src="logo.png" alt="LATTE FRESCO Logo" />
+      <span class="logo-text">LATTE FRESCO</span>
+    </div>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#products">Products</a>
+      <a href="#subscription">Subscription</a>
+      <a href="#delivery">Delivery Areas</a>
+      <a href="#blog">Blog</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <div class="hero" id="home">
+    <h1>Fresh From Farm to Home</h1>
+    <p>Start Your Day with Pure, Farm-Fresh Milk – Delivered to Your Doorstep</p>
+    <a href="#order" class="btn">Order Now</a>
+    <a href="#subscription" class="btn">Subscribe for Daily Delivery</a>
+  </div>
+
+  <section id="products">
+    <h2>Our Products</h2>
+    <div class="product-list-wrapper">
+      <button class="nav-arrow left" onclick="scrollProducts(-1)">&lt;</button>
+      <div class="product-list">
+        <div class="product-card">
+          <img src="buffalo-milk.jpg" alt="Raw Buffalo Milk">
+          <h3>Raw Buffalo Milk</h3>
+          <p>₹80/L – Thick, nutritious, unprocessed buffalo milk. Great for tea & sweets.</p>
+        </div>
+        <div class="product-card">
+          <img src="cow-milk.jpg" alt="Raw Cow Milk">
+          <h3>Raw Cow Milk</h3>
+          <p>₹70/L – Light & easily digestible raw milk from local Desi cows.</p>
+        </div>
+        <div class="product-card">
+          <img src="buffalo-ghee.jpg" alt="Buffalo Ghee">
+          <h3>Organic Buffalo Ghee</h3>
+          <p>1000/500grms – Handmade bilona churned Desi buffao ghee for Rich in fat-soluble vitamins.</p>
+        </div>
+        <div class="product-card">
+          <img src="cow-ghee.jpg" alt="Cow Ghee">
+          <h3>Organic Cow Ghee</h3>
+          <p>1000/500grms – Handmade bilona churned A2 cow ghee for immunity & digestion.</p>
+        </div>
+        <div class="product-card">
+          <img src="curd.jpg" alt="Curd">
+          <h3>Farm Curd</h3>
+          <p>₹50/500g – Made from our freshest milk, naturally set.</p>
+        </div>
+        <div class="product-card">
+          <img src="paneer.jpg" alt="Paneer">
+          <h3>Paneer</h3>
+          <p>₹120/250g – Soft, creamy, high-protein cottage cheese made daily.</p>
+        </div>
+        <div class="product-card">
+          <img src="lassi.jpg" alt="Lassi">
+          <h3>Lassi</h3>
+          <p>₹30/200ml – Refreshing sweet & salted lassi with a hint of cardamom.</p>
+        </div>
+        <div class="product-card">
+          <img src="flavoured-milk.jpg" alt="Flavoured Milk">
+          <h3>Flavoured Milk</h3>
+          <p>₹35/200ml – Available in rose, cardamom & chocolate flavors. Kids' favorite!</p>
+        </div>
+      </div>
+      <button class="nav-arrow right" onclick="scrollProducts(1)">&gt;</button>
+    </div>
+  </section>
+
+
+  <section id="subscription">
+    <h2>Subscription Plan</h2>
+    <p>Select your products, quantity, and delivery days. We deliver every morning between 5:00–7:00 AM.</p>
+    <ul>
+      <li>Pause anytime</li>
+      <li>Flexible quantity options</li>
+      <li>Glass bottle deposit system</li>
+    </ul>
+  </section>
+
+  <section id="delivery">
+    <h2>Delivery Areas</h2>
+    <p>We currently deliver across Nellore and surrounding areas</p>
+  </section>
+
+  <section id="blog">
+    <h2>Know Your Milk</h2>
+    <ul>
+      <li>Raw Milk vs Pasteurized Milk</li>
+      <li>Why A2 Milk is Popular</li>
+      <li>Benefits of Buffalo Milk</li>
+    </ul>
+  </section>
+
+  <section id="contact">
+    <h2>Contact Us</h2>
+    <p>📞 +91-7997919187</p>
+    <p>📧 support@lattefresco.in</p>
+    <p>📷 Instagram: <a href="https://instagram.com/lattefrescomilk">@lattefrescomilk</a></p>
+    <p>🕒 Business hours: 6 AM – 9 PM</p>
+  </section>
+
+ </body>
+<!-- Enhanced version with basic order and subscription functionality -->
+<!-- Added features:
+  - Order form popup for each product
+  - Add to cart functionality (localStorage-based for demo)
+  - Subscription form under #subscription
+  - Basic cart display and checkout button
+-->
+
+<!-- START HERE: Insert this just before </body> -->
+
+<!-- ORDER FORM MODAL -->
+<div id="orderModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:2000; justify-content:center; align-items:center;">
+  <div style="background:#fff; padding:30px; border-radius:12px; width:90%; max-width:400px;">
+    <h3 id="orderProductTitle">Order Product</h3>
+    <form id="orderForm">
+      <input type="hidden" id="productName" name="product" />
+      <label>Quantity:</label><br>
+      <input type="number" name="quantity" id="quantity" value="1" min="1" style="width:100%; padding:8px; margin:10px 0;" required><br>
+      <label>Name:</label><br>
+      <input type="text" name="customerName" style="width:100%; padding:8px; margin-bottom:10px;" required><br>
+      <label>Phone:</label><br>
+      <input type="tel" name="phone" style="width:100%; padding:8px; margin-bottom:10px;" required><br>
+      <label>Address:</label><br>
+      <textarea name="address" style="width:100%; padding:8px; margin-bottom:10px;" required></textarea><br>
+      <button type="submit" class="btn" style="width:100%;">Place Order</button>
+      <button type="button" onclick="closeOrderModal()" class="btn" style="background:#999; margin-top:10px; width:100%;">Cancel</button>
+    </form>
+  </div>
+</div>
+
+<!-- CART BUTTON -->
+<div style="position:fixed; bottom:20px; right:20px; z-index:999;">
+  <button onclick="viewCart()" class="btn">🛒 View Cart (<span id="cartCount">0</span>)</button>
+</div>
+
+<!-- SUBSCRIPTION FORM -->
+<section id="subscription">
+  <h2>Subscription Plan</h2>
+  <p>Select your products, quantity, and delivery days. We deliver every morning between 5:00–7:00 AM.</p>
+  <form onsubmit="alert('Thank you! We will contact you soon.'); return false;">
+    <input type="text" placeholder="Name" required style="padding:10px; width:100%; margin:10px 0;" />
+    <input type="tel" placeholder="Phone Number" required style="padding:10px; width:100%; margin:10px 0;" />
+    <textarea placeholder="Delivery Address" required style="padding:10px; width:100%; margin:10px 0;"></textarea>
+    <button class="btn" type="submit">Start Subscription</button>
+  </form>
+</section>
+
+<script>
+function openOrderModal(productName) {
+  document.getElementById('orderProductTitle').innerText = `Order: ${productName}`;
+  document.getElementById('productName').value = productName;
+  document.getElementById('orderModal').style.display = 'flex';
+}
+function closeOrderModal() {
+  document.getElementById('orderModal').style.display = 'none';
+}
+document.getElementById('orderForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const product = this.product.value;
+  const qty = this.quantity.value;
+  const cart = JSON.parse(localStorage.getItem('latteCart') || '[]');
+  cart.push({ product, qty });
+  localStorage.setItem('latteCart', JSON.stringify(cart));
+  updateCartCount();
+  alert('Product added to cart!');
+  closeOrderModal();
+});
+function updateCartCount() {
+  const cart = JSON.parse(localStorage.getItem('latteCart') || '[]');
+  document.getElementById('cartCount').innerText = cart.length;
+}
+function viewCart() {
+  const cart = JSON.parse(localStorage.getItem('latteCart') || '[]');
+  if (!cart.length) return alert('Cart is empty');
+  let summary = 'Your Cart:\n';
+  cart.forEach((item, i) => summary += `${i + 1}. ${item.product} x ${item.qty}\n`);
+  summary += '\nProceed to checkout manually or contact our team.';
+  alert(summary);
+}
+updateCartCount();
+</script>
+
+<!-- IN EACH PRODUCT CARD, ADD THIS BUTTON -->
+<!-- <button class="btn" onclick="openOrderModal('PRODUCT NAME')">Buy Now</button> -->
+ <div class="footer">
+    &copy; 2025 LATTE FRESCO | Made with love in Nellore
+  </div>
+
+</html>
+
+</body>
+</html>
