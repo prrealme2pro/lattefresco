@@ -126,6 +126,9 @@
       box-shadow: 0 12px 28px rgba(0,0,0,0.1);
       z-index: 10;
     }
+#modalProductImage:hover {
+  transform: scale(1.05);
+}
     .product-card img {
       width: 100%;
       height: 180px;
@@ -188,6 +191,32 @@
       <a href="#contact">Contact</a>
     </nav>
   
+<script>
+  function openProductModal(imageSrc, title, description) {
+    document.getElementById('modalProductImage').src = imageSrc;
+    document.getElementById('modalProductTitle').innerText = title;
+    document.getElementById('modalProductDescription').innerText = description;
+    document.getElementById('productViewModal').style.display = 'flex';
+  }
+
+  function closeProductModal() {
+    document.getElementById('productViewModal').style.display = 'none';
+  }
+
+  // Attach click event to each product image
+  document.addEventListener('DOMContentLoaded', function () {
+    const cards = document.querySelectorAll('.product-card');
+    cards.forEach(card => {
+      const img = card.querySelector('img');
+      const title = card.querySelector('h3')?.innerText || '';
+      const desc = card.querySelector('p')?.innerText || '';
+      img.style.cursor = 'pointer';
+      img.addEventListener('click', () => {
+        openProductModal(img.src, title, desc);
+      });
+    });
+  });
+</script>
 
 
 
@@ -311,6 +340,27 @@
   });
 </script>
 
+
+<!-- PRODUCT VIEW MODAL -->
+<div id="productViewModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:3000; justify-content:center; align-items:center;">
+  <div style="background:#fff; border-radius:12px; max-width:800px; width:90%; padding:20px; position:relative;">
+    <button onclick="closeProductModal()" style="position:absolute; top:10px; right:10px; background:#2e8b57; color:white; border:none; padding:6px 12px; border-radius:5px; cursor:pointer;">✕</button>
+   <img id="modalProductImage" src="" alt="Product Image" style="
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: 80vh;
+  display: block;
+  margin: 0 auto 20px auto;
+  object-fit: contain;
+  border-radius: 10px;
+  transition: transform 0.3s ease;
+" />
+
+    <h3 id="modalProductTitle"></h3>
+    <p id="modalProductDescription"></p>
+  </div>
+</div>
 
  </body>
 <!-- Enhanced version with basic order and subscription functionality -->
