@@ -877,15 +877,26 @@
 	<section id="blog" style="scroll-margin-top: 110px;">
   <h2>Blog</h2>
 
-  <div style="position: relative; max-width: 900px; margin: auto;">
-    <!-- Image Container -->
-    <img id="blogImage" src="blog image 1.png" style="width: 100%; height: auto; border-radius: 10px;" alt="Blog Image">
-
-    <!-- Navigation Buttons -->
-    <button onclick="prevImage()" style="position: absolute; top: 50%; left: 10px; transform: translateY(-50%); background-color: rgba(0,0,0,0.6); color: white; border: none; padding: 10px; font-size: 18px; cursor: pointer;">&#10094;</button>
-    
-    <button onclick="nextImage()" style="position: absolute; top: 50%; right: 10px; transform: translateY(-50%); background-color: rgba(0,0,0,0.6); color: white; border: none; padding: 10px; font-size: 18px; cursor: pointer;">&#10095;</button>
+  <div id="sliderContainer" 
+     style="overflow: hidden; max-width: 900px; margin: auto; position: relative;"
+     onmouseover="pauseSlider()" 
+     onmouseout="resumeSlider()">
+  
+  <div id="slider" style="display: flex; transition: transform 0.5s ease-in-out;">
+    <img src="blog image 1.png" style="width: 100%; flex-shrink: 0; border-radius: 10px;" alt="Blog Image 1">
+    <img src="blog image 2.png" style="width: 100%; flex-shrink: 0; border-radius: 10px;" alt="Blog Image 2">
+    <img src="blog image 3.png" style="width: 100%; flex-shrink: 0; border-radius: 10px;" alt="Blog Image 3">
+    <img src="blog image 4.png" style="width: 100%; flex-shrink: 0; border-radius: 10px;" alt="Blog Image 4">
+    <img src="blog image 5.png" style="width: 100%; flex-shrink: 0; border-radius: 10px;" alt="Blog Image 5">
+    <img src="blog image 6.png" style="width: 100%; flex-shrink: 0; border-radius: 10px;" alt="Blog Image 6">
   </div>
+
+  <!-- Navigation Buttons -->
+  <button onclick="prevImage()" style="position: absolute; top: 50%; left: 10px; transform: translateY(-50%); background-color: rgba(0,0,0,0.6); color: white; border: none; padding: 10px; font-size: 18px; cursor: pointer;">&#10094;</button>
+  
+  <button onclick="nextImage()" style="position: absolute; top: 50%; right: 10px; transform: translateY(-50%); background-color: rgba(0,0,0,0.6); color: white; border: none; padding: 10px; font-size: 18px; cursor: pointer;">&#10095;</button>
+</div>
+
 
   <ul>
     <li>Raw Milk vs Pasteurized Milk</li>
@@ -895,34 +906,41 @@
 </section>
 
 <script>
-  // Add your image paths here
-  const images = [
-    "blog image 1.png",
-    "blog image 2.png",
-    "blog image 3.png",
-    "blog image 4.png",
-    "blog image 5.png"
-  ];
-
+  const slider = document.getElementById('slider');
+  const totalImages = slider.children.length;
   let currentIndex = 0;
-  const imgElement = document.getElementById("blogImage");
+  let intervalId;
 
-  function showImage(index) {
-    if (index >= images.length) currentIndex = 0;
-    else if (index < 0) currentIndex = images.length - 1;
-    else currentIndex = index;
-
-    imgElement.src = images[currentIndex];
+  function updateSliderPosition() {
+    slider.style.transform = `translateX(-${currentIndex * 100}%)`;
   }
 
   function nextImage() {
-    showImage(currentIndex + 1);
+    currentIndex = (currentIndex + 1) % totalImages;
+    updateSliderPosition();
   }
 
   function prevImage() {
-    showImage(currentIndex - 1);
+    currentIndex = (currentIndex - 1 + totalImages) % totalImages;
+    updateSliderPosition();
   }
+
+  function startSlider() {
+    intervalId = setInterval(nextImage, 2000);
+  }
+
+  function pauseSlider() {
+    clearInterval(intervalId);
+  }
+
+  function resumeSlider() {
+    startSlider();
+  }
+
+  // Start automatic sliding on load
+  window.onload = startSlider;
 </script>
+
 
 
 
